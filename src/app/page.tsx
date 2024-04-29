@@ -17,10 +17,9 @@ export default function Home() {
 
     return (
         <>
-            <span>Hello</span>
             <button onClick={() => {
                 setIsStart(!isStart);
-            }}>Toggle</button>
+            }}>Toggle Camera</button>
             <CustomWebcam width={720} height={360} isCaptureEnable={isStart}/>
             {/*<DetectionCam width={720} height={360}/>*/}
         </>
