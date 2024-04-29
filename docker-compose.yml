@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  frontend:
+    image: ${DOCKER_HUB_USERNAME}/smart-bin-rvm-interface:latest
+    restart: always
+    ports:
+      - 8877:3000
