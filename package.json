@@ -1,31 +1,40 @@
 {
-  "name": "smartbin-interface",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "production": "next build && next start"
-  },
-  "dependencies": {
-    "@tensorflow-models/coco-ssd": "^2.2.3",
-    "@tensorflow/tfjs": "^4.17.0",
-    "ml5": "^0.12.2",
-    "next": "14.2.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-webcam": "^7.2.0"
-  },
-  "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.1"
-  }
+    "name": "smartbin-interface",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "format": "prettier --check .",
+        "format:fix": "prettier --write --list-different .",
+        "production": "next build && next start"
+    },
+    "dependencies": {
+        "@chakra-ui/next-js": "^2.2.0",
+        "@chakra-ui/react": "^2.8.2",
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
+        "@tensorflow-models/coco-ssd": "^2.2.3",
+        "@tensorflow/tfjs": "^4.17.0",
+        "framer-motion": "^11.1.9",
+        "ml5": "^0.12.2",
+        "next": "14.2.1",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-webcam": "^7.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "eslint": "^8",
+        "eslint-config-next": "14.2.1",
+        "eslint-config-prettier": "^9.1.0",
+        "postcss": "^8",
+        "prettier": "^3.2.5",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    }
 }
