@@ -1,3 +1,4 @@
+'use client';
 import { isAuthenticated } from '@/stores/Auth'
 import { redirect } from 'next/navigation'
 import { useLayoutEffect } from 'react'
