@@ -5,6 +5,7 @@ import CustomWebcam from '@/components/molecule/CustomWebcam/CustomWebcam'
 import { ConfirmModal } from '@/components/atom/Modal/ConfirmModal'
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
+import {moveServo} from "@/services/ServoService";
 
 interface IProps {
     isStart: boolean
@@ -25,8 +26,9 @@ export const Dashboard = ({ isStart }: IProps) => {
         // }
     }
 
-    const socketCall = () => {
+    const socketCall = async () => {
         console.log("socket called")
+        await moveServo()
     }
     return (
         <>
@@ -36,7 +38,7 @@ export const Dashboard = ({ isStart }: IProps) => {
                     Please insert item
                 </Heading>
                 <span>Insert once at a time</span>
-                <Button onClick={() => {socketCall()}}>Test me</Button>
+                <Button onClick={async () => {await socketCall()}}>Test me</Button>
                 <div className="flex flex-row m-3 space-x-3 ">
                     <div className="">
                         <CustomWebcam
