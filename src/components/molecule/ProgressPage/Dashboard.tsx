@@ -28,7 +28,9 @@ export const Dashboard = ({ isStart }: IProps) => {
 
     const socketCall = async () => {
         console.log("socket called")
-        await moveServo()
+        // await moveServo()
+        const socket = new WebSocket('ws://localhost:8765' )
+        await socket.send("MOVE")
     }
     return (
         <>
