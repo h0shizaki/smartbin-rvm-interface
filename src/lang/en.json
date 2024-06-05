@@ -1,0 +1,26 @@
+{
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, th {th Thai} en {us English} other {Unknown}}"
+  },
+  "StartPage": {
+    "header": "Recycle to earn Rewards for PET Plastic",
+    "sub_header": "5 Steps to earn point",
+    "step_one": "Press the “Start’ button on the screen to begin.",
+    "step_two": "Insert PET plastic bottles ONCE Item at a time.",
+    "step_three": "Press the “Finish” button and confirm to end process.",
+    "step_four": "Select your option with Donate point or Collecting Point.",
+    "step_five": "Input your phone number member to get points and exchange them for rewards.",
+    "start": "Start"
+  },
+  "Dashboard": {
+    "header": "Please Insert Item",
+    "sub_header": "Insert ONCE Item at a time",
+    "point": "Point",
+    "amount_title": "Bottles in Smart Bin",
+    "amount": "amount",
+    "carbon_credit": "Carbon Credit",
+    "carbon_definition": "1 carbon credit = Reduce 1 ton CO2e !",
+    "finish": "Finish"
+  }
+}

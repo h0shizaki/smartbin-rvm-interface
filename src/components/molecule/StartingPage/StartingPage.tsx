@@ -1,30 +1,35 @@
 import { Button, Heading } from '@chakra-ui/react'
 import { Instruction } from '@/components/atom/Instruction/Instruction'
-import {IInstruction} from "@/models/Instruction";
+import { IInstruction } from '@/models/Instruction'
+import { useTranslations } from 'next-intl'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 interface IProp {
-    setStart: (isStart: boolean) => void;
+    setStart: (isStart: boolean) => void
 }
-export function StartingPage (props: IProp) {
+
+export function StartingPage(props: IProp) {
+    const t = useTranslations('StartPage')
     const instructions: IInstruction[] = [
         {
-            description: 'Press the "Start" button on the screen to begin.',
+            description: t('step_one'),
             thumbnail: 'https://placehold.co/400',
         },
         {
-            description: 'Insert PET Plastic bottles ONCE item at a time.',
+            description: t('step_two'),
             thumbnail: 'https://placehold.co/400',
         },
         {
-            description: 'Press the "Finish" button and confirm to end process.',
+            description: t('step_three'),
             thumbnail: 'https://placehold.co/400',
         },
         {
-            description: 'Select your option with Donate point or Collecting point.',
+            description: t('step_four'),
             thumbnail: 'https://placehold.co/400',
         },
         {
-            description: 'Input your phone number to get points and exchange them for rewards.',
+            description: t('step_five'),
             thumbnail: 'https://placehold.co/400',
         },
     ]
@@ -36,10 +41,7 @@ export function StartingPage (props: IProp) {
                     <Heading as="h2" size="2xl">
                         Smart bin
                     </Heading>
-                    <span>
-                        Recycle to earn rewards for PET Plastic 5 Steps to earn
-                        point.
-                    </span>
+                    <span>{t('sub_header')}</span>
                 </center>
             </div>
             <div className="p-2 m-3 flex flex-col space-y-5 justify-items-center">
@@ -51,11 +53,15 @@ export function StartingPage (props: IProp) {
                         index={index + 1}
                     ></Instruction>
                 ))}
-                <Button colorScheme="orange" size="lg" onClick={() => {
-                    props.setStart(true);
-                }}>
-                    Start
-                </Button>
+
+                <Link
+                    href={'/dashboard'}
+                    className="flex flex-col space-y-5 justify-items-center"
+                >
+                    <Button colorScheme="orange" size="lg">
+                        {t('start')}
+                    </Button>
+                </Link>
             </div>
         </>
     )
