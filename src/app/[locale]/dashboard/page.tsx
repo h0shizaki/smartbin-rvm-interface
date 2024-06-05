@@ -6,7 +6,6 @@ import Switcher from '@/components/atom/LanguageSwitcher/Switcher'
 export default function Home() {
     return (
         <>
-            <Switcher/>
             <Dashboard isStart={true} />
         </>
     )

@@ -9,7 +9,7 @@ interface IProp {
     setStart: (isStart: boolean) => void
 }
 
-export function StartingPage(props: IProp) {
+export function StartingPage() {
     const t = useTranslations('StartPage')
     const instructions: IInstruction[] = [
         {

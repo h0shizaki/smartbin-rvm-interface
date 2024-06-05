@@ -3,6 +3,7 @@ import { getMessages } from 'next-intl/server'
 import { ChakraProvider } from '@chakra-ui/react'
 import { fonts } from '../fonts'
 import { Inter } from 'next/font/google'
+import Switcher from '@/components/atom/LanguageSwitcher/Switcher'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,10 @@ export default async function LocaleLayout({
         <html lang={locale} className={fonts.rubik.variable}>
             <body className={inter.className}>
                 <NextIntlClientProvider messages={messages}>
-                    <ChakraProvider>{children}</ChakraProvider>
+                    <ChakraProvider>
+                        <Switcher />
+                        {children}
+                    </ChakraProvider>
                 </NextIntlClientProvider>
             </body>
         </html>
