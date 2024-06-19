@@ -24,12 +24,6 @@ export default function Home() {
 
     return (
         <>
-            <div className="fixed top-0 right-0 ">EN/US</div>
-            {!isStart ? (
-                <StartingPage setStart={setIsStart} />
-            ) : (
-                <Dashboard isStart/>
-            )}
         </>
     )
 }
