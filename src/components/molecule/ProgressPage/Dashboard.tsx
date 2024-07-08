@@ -1,12 +1,13 @@
 'use client'
 
-import { Button, Heading, Text, useDisclosure } from '@chakra-ui/react'
+import {Button, Heading, Text, useDisclosure} from '@chakra-ui/react'
 import CustomWebcam from '@/components/molecule/CustomWebcam/CustomWebcam'
-import { ConfirmModal } from '@/components/atom/Modal/ConfirmModal'
+import {ConfirmModal} from '@/components/atom/Modal/ConfirmModal'
 import React, {useEffect, useState} from 'react'
-import { useRouter } from 'next/navigation'
+import {useRouter} from 'next/navigation'
 import servoService from '@/services/ServoService'
-import { MachineState } from '@/models/MachineState'
+import {MachineState} from '@/models/MachineState'
+import useSound from 'use-sound';
 
 interface IProps {
     isStart: boolean
@@ -16,12 +17,16 @@ export const Dashboard = ({ isStart }: IProps) => {
     const router = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [status, setStatus] = useState<MachineState>(MachineState.STARTING)
+    const [playCorrect] = useSound('/sound/accept.mp3');
+    const [playWrong] = useSound('/sound/reject.mp3');
+
 
     const sleep = (ms:number) => new Promise(
         resolve => setTimeout(resolve, ms));
     const onConfirm = ():void =>  {
         console.log("Hello World")
         setStatus(MachineState.ENDING)
+        playCorrect()
         onClose()
         // if(pointEarned > 1 ){
         //    TODO: navigate to point collecting page
@@ -41,9 +46,11 @@ export const Dashboard = ({ isStart }: IProps) => {
         if(Math.random() < 0.5) {
             // accept item
             setStatus(MachineState.ACCEPT)
+            playCorrect()
             await servoService.moveServo()
         } else{
             // reject item
+            playWrong()
             setStatus(MachineState.REJECT)
         }
 
