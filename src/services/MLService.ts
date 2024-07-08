@@ -5,7 +5,7 @@ const apiClient = axios.create({
         localStorage.getItem('ML_SERVICE_URL') || process.env.ML_SERVICE_URL,
     withCredentials: false,
     headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'multipart/form-data',
     },
 })

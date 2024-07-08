@@ -1,11 +1,12 @@
-'use client';
+'use client'
 
 import { Button, Heading, Text, useDisclosure } from '@chakra-ui/react'
 import CustomWebcam from '@/components/molecule/CustomWebcam/CustomWebcam'
 import { ConfirmModal } from '@/components/atom/Modal/ConfirmModal'
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation';
-import {moveServo} from "@/services/ServoService";
+import React, {useEffect, useState} from 'react'
+import { useRouter } from 'next/navigation'
+import servoService from '@/services/ServoService'
+import { MachineState } from '@/models/MachineState'
 
 interface IProps {
     isStart: boolean
@@ -14,8 +15,13 @@ interface IProps {
 export const Dashboard = ({ isStart }: IProps) => {
     const router = useRouter()
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [status, setStatus] = useState<MachineState>(MachineState.STARTING)
+
+    const sleep = (ms:number) => new Promise(
+        resolve => setTimeout(resolve, ms));
     const onConfirm = ():void =>  {
         console.log("Hello World")
+        setStatus(MachineState.ENDING)
         onClose()
         // if(pointEarned > 1 ){
         //    TODO: navigate to point collecting page
@@ -24,29 +30,49 @@ export const Dashboard = ({ isStart }: IProps) => {
         //    TODO: navigate to home page
         // window.location.reload()
         // }
+        setStatus(MachineState.IDLE)
     }
 
-    const socketCall = async () => {
-        console.log("socket called")
-        // await moveServo()
-        const socket = new WebSocket('ws://localhost:8765' )
-        await socket.send("MOVE")
+    const moveServoHandler = async () => {
+        setStatus(MachineState.PROCESSING)
+        await sleep(3000)
+
+        //random true or false
+        if(Math.random() < 0.5) {
+            // accept item
+            setStatus(MachineState.ACCEPT)
+            await servoService.moveServo()
+        } else{
+            // reject item
+            setStatus(MachineState.REJECT)
+        }
+
+        await sleep(1000)
+        setStatus(MachineState.READY)
     }
+
+    useEffect(  () => {
+        console.log("STATUS CHANGED")
+        servoService.updateLight(status)
+    }, [status])
+
     return (
         <>
+            { status }
             <ConfirmModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} onConfirm={onConfirm}/>
             <div className="w-screen flex flex-col place-items-center">
                 <Heading as="h2" size="2xl">
                     Please insert item
                 </Heading>
                 <span>Insert once at a time</span>
-                <Button onClick={async () => {await socketCall()}}>Test me</Button>
+                <Button onClick={async () => {await moveServoHandler()}}>Test me</Button>
                 <div className="flex flex-row m-3 space-x-3 ">
                     <div className="">
                         <CustomWebcam
                             width={420}
                             height={720}
                             isCaptureEnable={isStart}
+                            setStatus={setStatus}
                         />
                     </div>
                     <div className="flex flex-col space-y-7">

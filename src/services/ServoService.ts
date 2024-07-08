@@ -1,8 +1,22 @@
+import axios from 'axios'
+import {MachineState} from "@/models/MachineState";
 
-const baseURL = localStorage.getItem('WS_SERVICE_URL') || process.env.WS_SERVICE_URL
-const socket = new WebSocket(baseURL || 'ws://localhost:8765' )
+const localServoClient = axios.create({
+    baseURL:  process.env.NEXT_PUBLIC_SERVO_SERVICE_URL,
+    withCredentials: false,
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    }
+})
 
-
-export let moveServo = async () => {
-    await socket.send("MOVE")
+const moveServo = () => {
+    return localServoClient.get('/move')
 }
+
+const updateLight = (value: MachineState) => {
+    return localServoClient.put('/light', {data: value})
+}
+
+
+export default { moveServo, updateLight }

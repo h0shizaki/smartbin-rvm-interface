@@ -4,6 +4,7 @@ import { FC, useRef, useState, useCallback, useEffect } from 'react'
 import Webcam from 'react-webcam'
 import dynamic from 'next/dynamic'
 import { Skeleton } from '@chakra-ui/react'
+import {MachineState} from "@/models/MachineState";
 
 const DetectionCam = dynamic(
     () => {
@@ -16,16 +17,34 @@ interface CustomWebcamProps {
     width: number
     height: number
     isCaptureEnable: boolean
+    setStatus: Function
 }
+
+
 
 const CustomWebcam: FC<CustomWebcamProps> = ({
     width,
     height,
     isCaptureEnable,
+    setStatus
 }) => {
     const webcamRef = useRef<Webcam>(null)
     const [url, setUrl] = useState<string | null>(null)
     const [isReady, setIsReady] = useState<boolean>(false)
+
+
+    const updateState = (value: boolean) => {
+        if(value){
+            setStatus(MachineState.READY)
+        }else{
+            setStatus(MachineState.STARTING)
+        }
+        setIsReady(value)
+    }
+    useEffect( () => {
+        setIsReady(false)
+        setStatus(MachineState.STARTING)
+    },[])
 
     const capture = (url: string) => {
         setUrl(url)
@@ -44,7 +63,7 @@ const CustomWebcam: FC<CustomWebcamProps> = ({
                                 webcamRef={webcamRef}
                                 isCaptureEnable
                                 capture={capture}
-                                setIsReady={setIsReady}
+                                setIsReady={updateState}
                             />
                             {/*</div>*/}
 
